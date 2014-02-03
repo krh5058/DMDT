@@ -1,0 +1,85 @@
+11/5/12
+
+-Added SRbox pressing.  Com default is 3.  Left most button (16) and right most button (1) taken as L/R, respectively.  KbCheck still available for escape.
+	-Added SRbox flush before trials and during if not Left or Right press
+-Moved [genobj ‘.init = [];’] to StopFcn of [dispobj ‘.t’] in hopes that it will only generate dots after the trial is over.  Must check compatibility.
+-Adjusted RecursiveLimit so that it fits number of trials plus 100 buffer.
+-Added second break screen -- ‘r’ key only
+-Changed display screen text to remove z and / keys
+
+10/22/12
+
+-Fixed issue with last trial cut off.  Issue was because loadQueue was resetting the final presentation values to NULL, since the queue is NULL on that iteration.
+-Appropriately commented all scripts.
+
+10/21/12
+
+Fixed recursion by adding kickout flag.
+Added “99” if no response and “NA” for respstr.
+Properly allowed for prac > task transition.
+Properly allowed for block transitions.
+
+Issue with in-proper expression ending.  Either first or last of each task trial is cut off.
+
+10/18/12
+
+Condition count is two back from gobj.coh_count.  This is because coh_count is added once as soon as dot generation is finished and because DotDisp is displaying the previous dot array that is loaded in queue.
+
+Modified DotGen.m
+- Display parameters now processed according to Cari’s experimental conditions
+
+Modified DataFile.m
+- Correctly begins recording (notified by DotDisp object through event data)
+- Stops Timer on button press
+- Calculates accuracy
+- Sends to writeFile, object method for recording data
+
+ToDo:
+- Fix recursive timer call and record call
+- Data output finalization
+- Double-check prac > task fluidity
+
+10/12/12
+
+- Add Fixation
+- Fix condition queue (log)
+
+10/5/12
+
+Conditions (7):
+	.008, .016, .032, .064, .128, .256, .512
+
+Blocks (5):
+	Equal amount of conditions for each block
+
+Trials (140): 
+	Each condition presented 20 times (20 * 7)
+
+Each Trial:
+	- 2s maximum
+	- Press will continue
+	- L/R -> “Z” and “/”
+	- Escape to abort
+	- Left or Right linear motion
+		- Counterbalanced, randomized
+	- Circle presentation
+
+Instructions 
+	- In this task, you will see arrays of dots on the screen. In each array, some proportion of the dots will be moving in the same direction, either LEFT or RIGHT. Your task is to decide as QUICKLY and ACCURATELY as possible whether the coherent direction of motion is LEFT or RIGHT, using the 'z' key as your LEFT response, and the '/' key as your right response. When you are ready to begin some practice trials, please place your index fingers on the 'z' and '/' keys, and hit either key to begin.
+- Press to continue
+	- 1 s black 
+Practice
+End Practice Screen
+	- This completes the practice trials. The task is divided into 5 blocks, with a break in between each block for you to rest your eyes before continuing. If you have any questions, feel free to ask the experimenter now. When you are ready to begin the task, please place your index fingers on the 'z' and '/' keys, and hit either key  to get started.
+	- Press to continue
+	- 1 s black
+Break Screen
+	- Feel free to rest your eyes and take a short break. When you feel ready to continue the task,  please place your index fingers on the 'z' and '/' keys, and hit either key.
+End Screen
+	- Congratulations! You have completed this portion of the experiment! Please notify the experimenter.
+
+Output:
+- Excel
+	- Headers: Subj #, Block #, Condition, L/R (Presentation), L/R (resp), RT, Acc (0/1/99*)
+		* 99 if timed out
+	- 7 * 20 * 5 = 700
